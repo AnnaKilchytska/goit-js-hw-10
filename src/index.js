@@ -8,8 +8,6 @@ const inputEl = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
-console.dir(inputEl);
-
 inputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput(e) {
@@ -19,7 +17,7 @@ function onInput(e) {
     fetchCountries(query)
       .then(createMarkup)
       .catch(error => {
-        console.log(error.message);
+        // console.log(error.message);
         if (error.message === 'Page Not Found') {
           Notify.failure('Oops, there is no country with that name');
         }
@@ -28,17 +26,17 @@ function onInput(e) {
 }
 
 function createMarkup(data) {
-  console.log(data.length);
+  // console.log(data.length);
   let markup = '';
   countryList.innerHTML = '';
   countryInfo.innerHTML = '';
 
   if (data.length >= 2 && data.length <= 10) {
-    console.log(data.length);
+    // console.log(data.length);
     markup = data
       .map(country => {
-        console.log(country.flags.svg);
-        console.log(country.name.official);
+        // console.log(country.flags.svg);
+        // console.log(country.name.official);
 
         return `<li class="country-item">
         <img class="list-image" src=${country.flags.svg} />
@@ -52,7 +50,7 @@ function createMarkup(data) {
     Notify.info('Too many matches found. Please enter a more specific name.');
   } else if (data.length === 1) {
     const [country] = data;
-    console.log(country);
+    // console.log(country);
     markup = `<div class="country-item">
         <img class="list-image" src=${country.flags.svg} />
         <h2 class="list-name">${country.name.official}</h2>
