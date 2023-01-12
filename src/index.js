@@ -18,7 +18,7 @@ function onInput(e) {
       .then(createMarkup)
       .catch(error => {
         // console.log(error.message);
-        if (error.message === 'Page Not Found') {
+        if (error.message === '404') {
           Notify.failure('Oops, there is no country with that name');
         }
       });
@@ -32,6 +32,7 @@ function createMarkup(data) {
   countryInfo.innerHTML = '';
 
   if (data.length >= 2 && data.length <= 10) {
+    countryList.innerHTML = '';
     // console.log(data.length);
     markup = data
       .map(country => {
@@ -49,6 +50,7 @@ function createMarkup(data) {
   } else if (data.length > 10) {
     Notify.info('Too many matches found. Please enter a more specific name.');
   } else if (data.length === 1) {
+    countryInfo.innerHTML = '';
     const [country] = data;
     // console.log(country);
     markup = `<div class="country-item">
